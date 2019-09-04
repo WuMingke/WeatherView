@@ -15,6 +15,15 @@ public class SnowFlake {
     private float angle;
     private float moveScopeX;
     private float moveScopeY;
+    private Random mRandom;
+
+    private float presentX;
+    private float presentY;
+
+
+    private float presentSpeed;
+    private float presentAngle;
+    private float presentRadius;
 
 
     public SnowFlake(float radius, float speed, float angle, float moveScopeX, float moveScopeY) {
@@ -23,14 +32,13 @@ public class SnowFlake {
         this.angle = angle;
         this.moveScopeX = moveScopeX;
         this.moveScopeY = moveScopeY;
+        mRandom = new Random();
+        presentX = mRandom.nextInt((int) moveScopeX);
+        presentY = mRandom.nextInt((int) moveScopeY);
+        presentSpeed = getSpeed();
+        presentAngle = getAngle();
+        presentRadius = getRadius();
     }
-
-    private Random random = new Random();
-    private float presentX = random.nextInt((int) moveScopeX) + 1;
-    private float presentY = random.nextInt((int) moveScopeY) + 1;
-    private float presentSpeed = getSpeed();
-    private float presentAngle = getAngle();
-    private float presentRadius = getRadius();
 
     public void draw(Canvas canvas, Paint paint) {
         moveX();
@@ -45,12 +53,12 @@ public class SnowFlake {
 
 
     private float getSpeed() {
-        speed = random.nextFloat() + 1;
+        speed = mRandom.nextFloat() + 1;
         return speed;
     }
 
     private float getRadius() {
-        radius = random.nextInt(15);
+        radius = mRandom.nextInt(15);
         return radius;
     }
 
@@ -68,7 +76,7 @@ public class SnowFlake {
         presentSpeed = getSpeed();
         presentAngle = getAngle();
         presentRadius = getRadius();
-        presentX = random.nextInt((int) moveScopeX);
+        presentX = mRandom.nextInt((int) moveScopeX);
         presentY = 0;
     }
 
